@@ -380,6 +380,10 @@ class UserController {
         fechaSeteada,
         "aqui termina la fecha seteada"
       );
+      if (fechaSeteada.length === 0) {
+        console.log("no hay usuarios para borrar, esto viene de console.log");
+        return res.status(500).send("No hay usaurios para borrar lokoooooo");
+      }
 
       const cleaner = await UserModel.deleteMany({
         last_connection: { $lt: fechaDos },
@@ -395,7 +399,7 @@ class UserController {
       //luego hacemos un await usuariosModel.deleeMany (let que tiene los usuarios que son 30 minutos a al fecha actual)
 
       //el problema aqui es de que manera activamos la funcion si ya esta iinactivo el usuario
-      res.status(200).send("Borrado exitoso");
+      res.status(200).json(fechaSeteada);
     } catch (error) {
       console.log(error);
       res.status(500).send("huo unn error al eliminar");

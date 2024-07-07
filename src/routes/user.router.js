@@ -27,6 +27,8 @@ router.post("/requestAdmin", userController.requestAdmin);
 //-------------RUTAS DE LOS PUNTOS PARA EL TP FINAL
 //Creacion de Get
 router.get("/", userController.getUsuarios);
+//en delete poner middleware de passport para poderrecuperar usaurio por el middleware de passport
+
 router.delete("/delete", userController.deleteUserinactividad);
 //-------------AQUI TERMINA EL BLOQUE DE LOS PUNTOS PARA EL TOP FINAL
 
