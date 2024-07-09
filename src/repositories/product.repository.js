@@ -141,7 +141,61 @@ class ProductRepository {
     }
   }
 
-  async eliminarProducto(id, userId) {
+  async eliminarProducto(id, user) {
+    try {
+      const productBeforeDelete = await ProductModel.findById(id);
+      const userId = user._id;
+      const user = await ProductModel.findById(userId);
+      console.log(
+        "yo soy usurio e n eliminar producto",
+        user,
+        "tssss este fue usuario"
+      );
+
+      if (user.role === "admin") {
+        //este bloque solo es para poder tener un control de que recibo, cuando jale lo comentare o eliminare
+        const name = user.first_name;
+        const apellido = user.last_name;
+        const product = productBeforeDelete;
+        console.log(
+          "estte es nombre: ",
+          name,
+          "este es apellido ",
+          apellido,
+          "este es el producto que se eliminara ",
+          product
+        );
+        //aqui termina el bloque que comentare o eliminare
+        await emailManager.deleteProductAdmin(
+          user.first_name,
+          user.last_name,
+          productBeforeDelete
+        );
+        //ahora estos campos los mandamos a la funcoon que esta en email para mandar un mensaje personalizado y acaba de ser creado entonces una vez envia el email vamos a eliminar el producto
+        const deleti = await ProductModel.findByIdAndDelete(id);
+        return deleti;
+      }
+      const deleteado = await ProductModel.findByIdAndDelete(id);
+
+      if (!deleteado) {
+        console.log("No se encuentraaaa, busca bien!");
+        return null;
+      }
+      console.log("Producto eliminado correctamente!");
+      //aqui hacer la validacion de user
+
+      return deleteado;
+    } catch (error) {
+      throw new Error("Error");
+    }
+  }
+  //obtener producto por rol
+}
+
+module.exports = ProductRepository;
+
+//aqui esta ña funcion eliminar producto de admin sin la limpieza agregada con comentarios y todo
+/* async eliminarProducto(id, userId) {
     try {
       const productBeforeDelete = await ProductModel.findById(id);
 
@@ -182,13 +236,9 @@ class ProductRepository {
       }
       console.log("Producto eliminado correctamente!");
       //aqui hacer la validacion de user
-
++
       return deleteado;
     } catch (error) {
       throw new Error("Error");
     }
-  }
-  //obtener producto por rol
-}
-
-module.exports = ProductRepository;
+  } */

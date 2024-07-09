@@ -30,6 +30,9 @@ router.get("/", userController.getUsuarios);
 //en delete poner middleware de passport para poderrecuperar usaurio por el middleware de passport
 
 router.delete("/delete", userController.deleteUserinactividad);
+
+//aqui va  ahacer para las vistas del admin que cambia el rol y elimina usuarios
+router.get("/gestionUser", userController.gestionUsuario);
 //-------------AQUI TERMINA EL BLOQUE DE LOS PUNTOS PARA EL TOP FINAL
 
 //Cuarta integradora:

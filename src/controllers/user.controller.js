@@ -406,6 +406,28 @@ class UserController {
     }
   }
 
+  //creacion de endpoint para cambiar rol y eliminar usuario en admin
+  async gestionUsuario(req, res) {
+    //primero que nada vamos a renderizar lapagina de ahndlebars
+    try {
+      const usersBase = await UserModel.find({ role: "usuario" });
+      console.log(usersBase);
+      //no olvidarnos de mapear cadauno de los usuarios
+
+      const users = usersBase.map((user) => ({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        role: user.role,
+      }));
+
+      console.log("esto es el map de users", users);
+      res.render("gestion-user", { usuarios: users });
+    } catch (error) {
+      console.log("este viene de gestionUser", error);
+    }
+  }
+
   //TERMINACION DEL BLOQUE DE LOS METODOS PARA EL TP FINAL
 }
 
