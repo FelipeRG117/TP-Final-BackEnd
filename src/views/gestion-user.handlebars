@@ -1,67 +1,49 @@
 <h1>Esto es gGestion de Usuario admin</h1>
 <h2>Aqui pdras gestionar el rol y eliminar usaurios </h2>
 
-    {{#each usuarios}}
+{{#each usuarios}}
 <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
+  <img src="..." class="card-img-top" alt="..." />
   <div class="card-body">
-    <h5 class="card-title">Nombre: {{first_name}} 
-    <br> Apellido: {{last_name}} </h5>
-    <p class="card-text">Email: {{email}}
-    <br> Rol: {{role}}  </p>
+    <h5 class="card-title">Nombre:
+      {{first_name}}
+      <br />
+      Apellido:
+      {{last_name}}
+    </h5>
+    <p class="card-text">Email:
+      {{email}}
+      <br />
+      Rol:
+      {{role}}
+    </p>
     <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Cambiar Role
-  </button>
-  <ul class="dropdown-menu">
-    <li><a id="adminButton" class="dropdown-item" href="#">Admin</a></li>
-    <li><a id="premiumButton" class="dropdown-item" href="#">Premium</a></li>
-  </ul>
-</div>
-    <br> <br> <a id="deleteButton" href="#" class="btn btn-primary">Eliminar usuario</a>
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Cambiar Role
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button class="text-indigo-600 hover:text-indigo-900" type="button"
+            onclick="changeRoleUser('{{email}}','admin')">Admin {{email}} </button>
+        </li>
+        <li><a id="premiumButton" class="dropdown-item" href="#">Premium</a></li>
+      </ul>
+    </div>
+    <br />
+    <br />
+    <a id="deleteButton" href="#" class="btn btn-primary">Eliminar usuario</a>
   </div>
 </div>
 
-    {{/each}}
+{{/each}}
 
-
-{{!-- <script>
-    document.addEventListener("DOMContentLoaded", (event) => {
-        const adminButton = document.getElementById("adminButton");
-        const premiumButton = document.getElementById("premiumButton");
-        const deleteUser = document.getElementById("deleteButton")
-        adminButton.addEventListener("click", (e) => {
-          e.preventDefault(); // Evita que el enlace navegue a otro lugar
-          console.log("Admin button was clicked!");
-          // Aquí puedes agregar la lógica adicional que necesites
-        });
-
-        premiumButton.addEventListener("click", (e) => {
-          e.preventDefault(); // Evita que el enlace navegue a otro lugar
-          console.log("Premium button was clicked!");
-          // Aquí puedes agregar la lógica adicional que necesites
-        });
-        deleteUser.addEventListener("click", (e) => {
-          e.preventDefault(); // Evita que el enlace navegue a otro lugar
-          console.log("Premium button was clicked!");
-          // Aquí puedes agregar la lógica adicional que necesites
-        });
-
-      });
-</script> --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script>
+  function changeRoleUser(email, new_role) {
+    console.log("este es email", email, " este es el nuevo role ", new_role)
+    fetch(`/api/users/gestionUser`, {
+      method: `PUT`,
+      headers: {`Content-Type`: `application/json`},
+  body: JSON.stringify({ email: email, new_role: new_role }) 
+  })
+  console.log(email, new_role) }
+</script>

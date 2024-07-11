@@ -427,7 +427,15 @@ class UserController {
       console.log("este viene de gestionUser", error);
     }
   }
-
+  //aqui vba a ir el put para cambair el rol  a usuarios
+  async changeRolUser(req, res) {
+    try {
+      const { email, new_role } = req.body;
+      console.log(email, new_role);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   //TERMINACION DEL BLOQUE DE LOS METODOS PARA EL TP FINAL
 }
 
